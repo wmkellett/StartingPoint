@@ -1,0 +1,132 @@
+/* landing page colors */
+
+$text-gray: #504740;
+$text-light: #666463;
+$bg-taupe: #f0edeb;
+$cont-ivory: #fcfbfb;
+$orange: #ff950a;
+
+#Welcome {
+  width: 100%;
+  min-height: 100VH;
+  background: $bg-taupe;
+  .row {
+    @media screen and (max-width: $screen-sm-max) {
+      padding: 0 50px;
+    }
+    @media screen and (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+      padding: 0 75px;
+    }
+    @media screen and (min-width: $screen-lg-min) {
+      padding: 0 150px;
+    }
+    &.jumbotron {
+      background-color: $bright-blue;
+      border-radius: 0px;
+      height: 48%;
+      position: relative;
+      padding-top: 25px;
+      padding-bottom: 25px;
+      margin-bottom: 0px;
+      img.logo {
+        @media screen and (max-width: $screen-sm-max) {
+          margin-bottom: 1em;
+        }
+        @media screen and (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+          margin-bottom: 2.5em;
+        }
+        @media screen and (min-width: $screen-lg-min) {
+          margin-bottom: 3em;
+        }
+      }
+      img.background {
+        position: absolute;
+        right: 115px;
+        bottom: -30px;
+        max-width: 35%;
+        max-height: 90%;
+      }
+      a {
+        &.btn {
+          background: transparent;
+          border: 2px solid $orange;
+          border-radius: 3px;
+          padding: 17px 34px 16px 34px;
+          font-size: 19px;
+          line-height: 19px;
+          color: #FFF;
+          @media screen and (max-width: $screen-sm-max) {
+            margin-top: 1em;
+          }
+          @media screen and (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+            margin-top: 2em;
+          }
+          @media screen and (min-width: $screen-lg-min) {
+            margin-top: 3em;
+          }
+          &:hover {
+            background: $orange;
+          }
+        }
+      }
+    }
+  }
+
+  .boxes {
+    @media screen and (min-width: $screen-md-min) {
+      display: flex;
+    }
+    padding-bottom: 100px;
+  }
+
+  .box {
+    background: $cont-ivory;
+    padding: 40px 50px;
+    text-align: center;
+    margin: 0 -20px;
+    @media screen and (min-width: $screen-md-min) {
+      height: 100%;
+    }
+    @media screen and (max-width: $screen-sm-max) {
+      margin-bottom: 15px;
+    }
+    img {
+      margin: 0 auto 30px auto;
+
+    }
+    p {
+      font-size: 18px;
+      color: $text-gray;
+    }
+  }
+  footer {
+    width: 100%;
+    background: $bg-taupe;
+    height: auto;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    p {
+      font-size: 15px;
+      line-height: 25px;
+      color: $text-light;
+      text-align: center;
+    }
+  }
+  h1 {
+    font-size: 46px;
+    color: #FFF;
+  }
+  h2 {
+    color: $text-gray;
+    font-size: 30px;
+    line-height: 35px;
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 80px;
+  }
+  h3 {
+    font-size: 18px;
+    color: #FFF;
+  }
+}

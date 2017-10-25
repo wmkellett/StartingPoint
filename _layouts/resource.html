@@ -1,0 +1,359 @@
+---
+layout: page
+---
+
+<h2 id="basic-information">Basic information</h2>
+
+{% if page.raml_resource.description != null %}
+  <p>{{ page.raml_resource.description | markdownify }}</p>
+{% endif %}
+
+<pre>{{ page.raml_method.method }} {{ page.relative_uri }}</pre>
+
+{% if page.raml_method.description != null %}
+  <p>{{ page.raml_method.description | markdownify }}</p>
+{% endif %}
+
+{% comment %} Cleo API does not require authorization.
+<strong>Authorisation</strong>
+  <p>OAuth 2.0 Token required with scopes: </p>
+  {% assign authorization = page.raml_method.secured_by | shift: 2 %}
+  {% for scope in authorization %}
+    <input type="checkbox" value="{{ scope }}" checked onclick="return false" style="margin-left: 15px"> {{ scope }}<br>
+  {% endfor %}
+{% endcomment %}
+
+{% if page.raml_resource.uri_parameters != empty %}
+  <h2 id="uri-parameters">URI parameters</h2>
+  <table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for p_tmp in page.raml_resource.uri_parameters %}
+      {% assign p = p_tmp[1] %}
+      {% if p.enum.size > 0 %}
+        {% capture p_type %}[<code>{{ p.enum | quote_strings | join: '</code>, <code>' }}</code>]{% endcapture %}
+      {% elsif p.pattern %}
+        {% capture p_type %}{{ p.type }} (regex: <code>{{ p.pattern }}</code>){% endcapture %}
+      {% else %}
+        {% assign p_type = p.type %}
+      {% endif %}
+      <tr>
+        <td><code>{{ p.display_name }}</code></td>
+        <td>{{ p_type }}</td>
+        <td>
+          {% if p.description %}<div>{{ p.description | markdownify }}</div>{% endif %}
+          <div>Required: <code>{{ p.required }}</code></div>
+          {% if p.default %}<div>Default: <code>{{ p.default }}</code></div>{% endif %}
+          {% if p.minimum %}<div>Minimum: {{ p.minimum }}</div>{% endif %}
+          {% if p.maximum %}<div>Maximum: {{ p.maximum }}</div>{% endif %}
+          {% if p.example %}<div>Example: <code>{{ p.example }}</code></div>{% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+
+{% if page.raml_method.headers != empty %}
+  <h2 id="headers">Headers</h2>
+  <table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for p_tmp in page.raml_method.headers %}
+    {% assign p = p_tmp[1] %}
+    {% if p.enum.size > 0 %}
+      {% capture p_type %}[<code>{{ p.enum | quote_strings | join: '</code>, <code>' }}</code>]{% endcapture %}
+    {% elsif p.pattern %}
+      {% capture p_type %}{{ p.type }} (regex: <code>{{ p.pattern }}</code>){% endcapture %}
+    {% else %}
+      {% assign p_type = p.type %}
+    {% endif %}
+    <tr>
+      <td><code>{{ p.display_name }}</code></td>
+      <td>{{ p_type }}</td>
+      <td>
+        {% if p.description %}<div>{{ p.description | markdownify }}</div>{% endif %}
+        <div>Required: <code>{{ p.required }}</code></div>
+        {% if p.default %}<div>Default: <code>{{ p.default }}</code></div>{% endif %}
+        {% if p.minimum %}<div>Minimum: <code>{{ p.minimum }}</code></div>{% endif %}
+        {% if p.maximum %}<div>Maximum: <code>{{ p.maximum }}</code></div>{% endif %}
+        {% if p.example %}<div>Example: <code>{{ p.example }}</code></div>{% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+
+{% if page.raml_method.query_parameters != empty %}
+  <h2 id="query-parameters">Query parameters</h2>
+  <table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for p_tmp in page.raml_method.query_parameters %}
+      {% assign p = p_tmp[1] %}
+      {% if p.enum.size > 0 %}
+        {% capture p_type %}[<code>{{ p.enum | quote_strings | join: '</code>, <code>' }}</code>]{% endcapture %}
+      {% elsif p.pattern %}
+        {% capture p_type %}{{ p.type }} (regex: <code>{{ p.pattern }}</code>){% endcapture %}
+      {% else %}
+        {% assign p_type = p.type %}
+      {% endif %}
+      <tr>
+        <td><code>{{ p.display_name }}</code></td>
+        <td>{{ p_type }}</td>
+        <td>
+          {% if p.description %}<div>{{ p.description | markdownify }}</div>{% endif %}
+          <div>Required: <code>{{ p.required }}</code></div>
+          {% if p.default %}<div>Default: <code>{{ p.default }}</code></div>{% endif %}
+          {% if p.minimum %}<div>Minimum: <code>{{ p.minimum }}</code></div>{% endif %}
+          {% if p.maximum %}<div>Maximum: <code>{{ p.maximum }}</code></div>{% endif %}
+          {% if p.example %}<div>Example: <code>{{ p.example }}</code></div>{% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+
+{% if page.raml_method.bodies != empty %}
+  <h2 id="request-body">Request body</h2>
+  {% for body_tmp in page.raml_method.bodies %}
+    {% assign body = body_tmp[1] %}
+    <p>Media type <code>{{ body.media_type }}</code></p>
+
+    {% if body.media_type contains 'application/json' and body.schema != null %}
+      <h3 id="request-body">Attributes</h3>
+      <table class="table table-bordered table-striped">
+        <thead style="background-color: white;">
+          <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          {% assign keys = body.schema | json_keys: 'properties' %}
+          {% assign properties = body.schema | json_field: 'properties' %}
+          {% for key in keys %}
+            {% assign entries = properties[key] | json_attr_tbl_map: key %}
+            {% for entry in entries %}
+              {% if entry.xof %}
+                {% assign es = entry.xof_items %}
+              {% else %}
+                {% assign es = '' | split: '|' | push: entry %}
+              {% endif %}
+
+              {% assign e_types = '' | split: '|' %}
+
+              {% for e in es %}
+                {% if e.enum.size > 0 %}
+                  {% capture e_type %}[<code>{{ e.enum | quote_strings | join: '</code>, <code>' }}</code>]{% endcapture %}
+                {% elsif e.format %}
+                  {% capture e_type %}{{ e.type }} (format: <code>{{ e.format }}</code>){% endcapture %}
+                {% elsif e.pattern %}
+                  {% capture e_type %}{{ e.type }} (regex: <code>{{ e.pattern }}</code>){% endcapture %}
+                {% elsif e.link_name %}
+                  {% capture e_type %}{{ e.link_name | dot_sep_link: page.subpage_link_prefix, entry.id, e.link_name }}{% endcapture %}
+                {% else %}
+                  {% assign e_type = e.type %}
+                {% endif %}
+                {% assign e_types = e_types | push: e_type %}
+              {% endfor %}
+
+              {% assign entry_type_descr = e_types | join: ', ' %}
+              {% if entry.xof %}
+                {% capture list_preface %}<em>{{entry.xof_literate}}</em>{% endcapture %}
+                {% assign entry_type_descr = entry_type_descr | prepend: ': ' | prepend: list_preface %}
+              {% endif %}
+              <tr>
+                <td><code>{{ entry.id }}</code></td>
+                <td>{{ entry_type_descr }}</td>
+                <td>{% if entry.description %}<div>{{ entry.description | markdownify }}</div>{% endif %}</td>
+              </tr>
+            {% endfor %}
+          {% endfor %}
+        </tbody>
+      </table>
+    {% elsif body.form_parameters != empty %}
+      <h3 id="request-body">Attributes</h3>
+      <table class="table table-bordered table-striped">
+        <thead style="background-color: white;">
+          <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          {% for elem in body.form_parameters %}
+          {% assign p = elem[1] %}
+          {% if p.enum.size > 0 %}
+            {% capture p_type %}[<code>{{ p.enum | quote_strings | join: '</code>, <code>' }}</code>]{% endcapture %}
+          {% elsif p.pattern %}
+            {% capture p_type %}{{ p.type }} (regex: <code>{{ p.pattern }}</code>){% endcapture %}
+          {% else %}
+            {% assign p_type = p.type %}
+          {% endif %}
+          <tr>
+            <td><code>{{ p.name }}</code></td>
+            <td>{{ p_type }}</td>
+            <td>
+              {% if p.description %}<div>{{ p.description | markdownify }}</div>{% endif %}
+              <div>Required: <code>{{ p.required }}</code></div>
+              {% if p.default %}<div>Default: <code>{{ p.default }}</code></div>{% endif %}
+              {% if p.minimum %}<div>Minimum: <code>{{ p.minimum }}</code></div>{% endif %}
+              {% if p.maximum %}<div>Maximum: <code>{{ p.maximum }}</code></div>{% endif %}
+              {% if p.example %}<div>Example: <code>{{ p.example }}</code></div>{% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
+
+    {% if body.example %}
+      <h4>Example</h4>
+      <pre>{{ body.example }}</pre>
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if page.raml_method.responses != empty %}
+  <h2 id="response">Response body</h2>
+  {% for res_tmp in page.raml_method.responses %}
+    {% assign res = res_tmp[1] %}
+
+    {% if res.bodies == empty %}
+    <h3>HTTP {{ res.status_code }} {{ res.display_name }}</h3>
+    {% if res.description != null %}<p>{{ res.description | markdownify }}</p>{% endif %}
+    {% endif %}
+
+    {% for body_tmp in res.bodies %}
+      {% assign body = body_tmp[1] %}
+
+      <h3>HTTP {{ res.status_code }} {{ res.display_name }}</h3>
+      {% if res.description != null %}<p>{{ res.description | markdownify }}</p>{% endif %}
+
+      <p>Media type: <code>{{ body.media_type }}</code></p>
+
+      {% assign duplicate_of_req = false %}
+      {% assign json_schema = false %}
+      {% if body.media_type contains 'application/json' and body.schema != null %}
+        {% assign json_schema = true %}
+        {% comment %}
+          The code within the following "unless" block will ensure we
+          don't display an attribute table or example if it simply matches a request
+          body described above
+        {% endcomment %}
+        {% if page.raml_method.bodies %}
+           {% for req_body_tmp in page.raml_method.bodies %}
+              {% assign req_body = req_body_tmp[1] %}
+              {% if req_body.media_type contains 'application/json' and req_body.schema != null %}
+                {% assign req_body_keys = req_body.schema | json_keys: 'properties' | sort %}
+                {% assign res_body_keys = body.schema | json_keys: 'properties' | sort  %}
+                {% if req_body_keys == res_body_keys %}
+                  {% assign duplicate_of_req = true %}
+                  {% break %}
+                {% endif %}
+              {% endif %}
+           {% endfor %}
+        {% endif %}
+        {% assign post_conflict = false %}
+        {% if res.status_code == 409 and page.raml_method.method == 'POST' %}
+          {% assign post_conflict = true %}
+        {% endif %}
+        {% if duplicate_of_req or post_conflict %}
+          {% if post_conflict %}
+            <p>The returned object is the same as in the 201 response.</p>
+          {% elsif page.raml_method.method == 'POST' %}
+            <p>The returned object is the same as the request body object, but with an ID, metadata, link(s), and default values for unspecified attributes when applicable.</p>
+          {% elsif page.raml_method.method == 'PUT' %}
+            <p>The returned object is the same as the request body object, but with metadata, link(s), and default values for unspecified attributes when applicable.</p>
+          {% endif %}
+        {% else %}
+          <h3 id="response-attributes">Attributes</h3>
+          <table class="table table-bordered table-striped">
+            <thead style="background-color: white;">
+              <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+              {% assign keys = body.schema | json_keys: 'properties' %}
+              {% assign properties = body.schema | json_field: 'properties' %}
+              {% for key in keys %}
+                {% assign entries = properties[key] | json_attr_tbl_map: key %}
+                {% for entry in entries %}
+                  {% if entry.xof %}
+                    {% assign es = entry.xof_items %}
+                  {% else %}
+                    {% assign es = '' | split: '|' | push: entry %}
+                  {% endif %}
+
+                  {% assign e_types = '' | split: '|' %}
+
+                  {% for e in es %}
+                    {% if e.enum.size > 0 %}
+                      {% capture e_type %}[<code>{{ e.enum | quote_strings | join: '</code>, <code>' }}</code>]{% endcapture %}
+                    {% elsif e.format %}
+                      {% capture e_type %}{{ e.type }} (format: <code>{{ e.format }}</code>){% endcapture %}
+                    {% elsif e.pattern %}
+                      {% capture e_type %}{{ e.type }} (regex: <code>{{ e.pattern }}</code>){% endcapture %}
+                    {% elsif e.link_name %}
+                      {% capture e_type %}{{ e.link_name | dot_sep_link: page.subpage_link_prefix, entry.id, e.link_name }}{% endcapture %}
+                    {% else %}
+                      {% assign e_type = e.type %}
+                    {% endif %}
+                    {% assign e_types = e_types | push: e_type %}
+                  {% endfor %}
+
+                  {% assign entry_type_descr = e_types | join: ', ' %}
+                  {% if entry.xof %}
+                    {% capture list_preface %}<em>{{entry.xof_literate}}</em>{% endcapture %}
+                    {% assign entry_type_descr = entry_type_descr | prepend: ': ' | prepend: list_preface %}
+                  {% endif %}
+                  <tr>
+                    <td><code>{{ entry.id }}</code></td>
+                    <td>{{ entry_type_descr }}</td>
+                    <td>{% if entry.description %}<div>{{ entry.description | markdownify }}</div>{% endif %}</td>
+                  </tr>
+                {% endfor %}
+              {% endfor %}
+            </tbody>
+          </table>
+       {% endif %}
+    {% endif %}
+
+    {% unless duplicate_of_req or body.example == null %}
+      {% unless post_conflict and json_schema %}
+        <h4>Example</h4>
+        <pre class="pre-scrollable">{{ body.example | xml_escape }}</pre>
+      {% endunless %}
+    {% endunless %}
+
+    {% endfor %}
+  {% endfor %}
+{% endif %}
+
+<h2 id="code-examples">Code examples</h2>
+<div role="tabpanel">
+  <ul class="nav nav-tabs" role="tablist">
+    {% for snippet in page.raml_snippets %}
+      <li role="presentation" {% if forloop.first %}class="active"{% endif %}><a href="#{{ snippet['title'] | slugify }}" aria-controls="{{ snippet['title'] | slugify }}" role="tab" data-toggle="tab">{{ snippet['title'] }}</a></li>
+    {% endfor %}
+  </ul>
+  <div class="tab-content">
+    {% for snippet in page.raml_snippets %}
+      <div role="tabpanel" class="tab-pane {% if forloop.first %}active{% endif %}" id="{{ snippet['title'] | slugify }}"><p><pre>{{ snippet['snippet'] }}</pre></p></div>
+    {% endfor %}
+  </div>
+</div>

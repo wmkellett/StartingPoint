@@ -1,0 +1,83 @@
+#landingpage-banner-search {
+  width: 80%;
+  margin: 0 auto;
+  padding: 4rem;
+  padding-top: 2rem;
+
+  @media screen and (min-width: $screen-lg-min) {
+    width: 45%;
+  }
+
+  @media screen and (max-width: $screen-md-max) {
+    width: 70%;
+  }
+
+  @media screen and (max-width: $screen-sm-max) {
+    width: 90%;
+  }
+}
+
+#search-box {
+  height: $search-height;
+  font-size: 20px;
+  padding: 11px 10px 8px 10px;
+  background: #fff;
+  color: $font-light;
+  border: 0px;
+  background: #FFF url('#{$assets-base}/images/search.png') 99% center no-repeat;
+  @media screen and (max-width: $screen-xs-max) {
+    background-position: 96% center;
+  }
+}
+
+#search-results {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+.search-result {
+  padding: 0;
+  margin: 10px 0;
+}
+
+.search-highlight {
+  &:before {
+    content: "…";
+  }
+
+  &:after {
+    content: "…";
+  }
+
+  em {
+    font-weight: bold;
+    background-color: yellow;
+  }
+}
+
+.form-control,
+.form-control:focus {
+  border-radius: 0;
+  @include box-shadow(inset 0 0 0 rgba(0,0,0,.075));
+  @include transition(none);
+}
+
+.btn-search {
+  background-color: $green;
+  border-radius: 0;
+  border: 1px solid $green;
+  color: #fff;
+  font-size: 1.8rem;
+  min-height: 16px;
+  line-height: 24px;
+  text-decoration: none;
+  height: 36px;
+
+  &:hover, &:active, &:focus {
+    background-color: darken($green, 2);
+    border: 1px solid darken($green, 2);
+    color: #fff;
+    text-decoration: none;
+  }
+}

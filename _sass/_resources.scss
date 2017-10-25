@@ -1,0 +1,44 @@
+.http-method {
+  @extend .label;
+  @extend .label-default;
+
+  display: inline-block;
+  width: 75px;
+}
+
+@mixin method-colors($background, $border) {
+  background-color: $background !important;
+  border: 1px solid $border !important;
+  color: $font-gray;
+  &:hover {
+    background-color: $background !important;
+    border: 1px solid $border !important;
+    color: $font-gray;
+  }
+}
+
+.http-method-get {
+  @include method-colors(#add3e6, #add3e6);
+}
+
+.http-method-post {
+  @include method-colors(#c4e6ad, #c4e6ad);
+}
+
+.http-method-put {
+  @include method-colors(#faebcc, #faebcc);
+}
+
+.http-method-delete {
+  @include method-colors(#fdc4c7, #fdc4c7);
+}
+
+.http-method-head {
+  @include method-colors(#cdb6dc, #cdb6dc);
+}
+
+.label-default:hover {
+  background-color: #ddd;
+  border: 1px solid #ddd;
+  color: #333;
+}

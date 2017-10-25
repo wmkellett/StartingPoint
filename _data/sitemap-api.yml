@@ -1,0 +1,49 @@
+- key: getting-started
+  title: Getting started
+  entries:
+    - title: Welcome
+      link: page:welcome
+    - title: Overview
+      link: page:api-overview
+#    Commenting out Use Cases from nav bar
+#    Deleting use-cases.md from the repo for now.
+#    use-cases.md needs to be written and reinstated.
+#    When we reinstate use-cases.md, it goes in the
+#    ../api/getting-started directory.
+#    - title: Use Cases
+    - title: Request Headers
+      link: page:request-headers
+    - title: Response Headers
+      link: page:response-headers
+    - title: Media Types
+      link: page:media-types
+    - title: Response Codes
+      link: page:response-codes
+
+- key: api-reference
+  title: API reference
+  entries:
+    - title: All Resources
+      link: page:api-resources-all
+    - title: Actions
+      link: page:api-resources-actions
+    - title: Authentication
+      link: page:api-resources-authentication
+    - title: Certificates
+      link: page:api-resources-certs
+    - title: Connections
+      link: page:api-resources-connections
+    - title: Events
+      link: page:api-resources-events
+    - title: Files
+      link: page:api-resources-files
+    - title: Folders
+      link: page:api-resources-folders
+    - title: Password Reset
+      link: page:api-resources-passwordreset
+    - title: Resource Folders
+      link: page:api-resources-resourcefolders
+    - title: Transfers
+      link: page:api-resources-transfers
+    - title: Users
+      link: page:api-resources-users

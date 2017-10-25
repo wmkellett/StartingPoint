@@ -1,0 +1,239 @@
+footer {
+  font-size: 15px;
+  line-height: 32px;
+  color: #fff;
+  background-color: $bright-blue;
+  padding: $footer-padding-y $footer-padding-x;
+  @media screen and (min-width: $screen-sm-min) {
+    position: absolute;
+    bottom: 0;
+    height: $footer;
+    width: 100%;
+  }
+  @media screen and (max-width: $screen-xs-max) {
+    padding: 45px 30px;
+    .col-xs-12 {
+      padding: 0 0 0 0;
+    }
+  }
+  .container-fluid {
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    background: transparent;
+    width: 100%;
+    .row {
+      margin: 0 0 0 0;
+    }
+  }
+  ul {
+    list-style: none;
+    &.has-pipe {
+      @media screen and (max-width: $screen-xs-max) {
+        text-align: center;
+        &.corporate-links {
+          li {
+            display: block;
+            &:after {
+              content: "";
+              padding-left: 0px;
+            }
+          }
+        }
+      }
+      li {
+        &:after {
+          content: "|";
+          padding-left: 10px;
+        }
+        &:last-child:after {
+          content: "";
+          padding-left: 0;
+        }
+      }
+    }
+    &.social-media {
+      @media screen and (min-width: $screen-sm-min) {
+        text-align: right;
+      }
+      @media screen and (max-width: $screen-xs-max) {
+        text-align: center;
+        margin: 30px 0;
+      }
+      li {
+        margin: 0 13.5px;
+        padding: 0px;
+        a {
+          display: block;
+          line-height: 100%;
+        }
+        &:first-child {
+          margin-left: 0px;
+          margin-right: 13.5px;
+        }
+        &:last-child {
+          margin-left: 13.5px;
+          margin-right: 0px;
+        }
+        .icon {
+          height: 19px;
+          width: 19px;
+          display: inline-block;
+          margin: 0; padding: 0; border: none;
+          @media screen and (max-width: $screen-xs-max) {
+            height: 45px;
+            width: 45px;
+          }
+          &.facebook {
+            background: transparent url('#{$assets-base}/images/social/facebook.png') center center no-repeat;
+            @media screen and (max-width: $screen-xs-max) {
+              background-image: url('#{$assets-base}/images/social/mobile/facebook.png');
+            }
+          }
+          &.twitter {
+            background: transparent url('#{$assets-base}/images/social/twitter.png') center center no-repeat;
+            @media screen and (max-width: $screen-xs-max) {
+              background-image: url('#{$assets-base}/images/social/mobile/twitter.png');
+            }
+          }
+          &.linkedin {
+            background: transparent url('#{$assets-base}/images/social/linkedin.png') center center no-repeat;
+            @media screen and (max-width: $screen-xs-max) {
+              background-image: url('#{$assets-base}/images/social/mobile/linkedin.png');
+            }
+          }
+          &.youtube {
+            background: transparent url('#{$assets-base}/images/social/youtube.png') center center no-repeat;
+            @media screen and (max-width: $screen-xs-max) {
+              background-image: url('#{$assets-base}/images/social/mobile/youtube.png');
+            }
+          }
+        }
+      }
+    }
+  }
+
+  a {
+    text-decoration: none;
+    color: #FFF;
+    font-size: 15px;
+    line-height: 32px;
+    color: #fff;
+    &.bigger {
+      font-size: 17px;
+    }
+  }
+
+  @media screen and (max-width: $screen-sm-max) {
+    font-size: 12px;
+  }
+}
+
+.logo {
+  .row > div {
+    height: 70px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+}
+
+.locations {
+  padding: 1.25rem 1.875rem 0rem 1.875rem;
+  text-transform: uppercase;
+
+  .locationBorder {
+    border-top: 1px solid white;
+  }
+
+  ul {
+    display: table;
+    padding: 0;
+    margin: 0 auto;
+  }
+
+  li {
+    float: left;
+    padding: 0 25px;
+  }
+}
+
+.social {
+  padding: 1.25rem 1.875rem 0rem 1.875rem;
+  text-align: center;
+
+  a {
+    &>span {
+      font-size: 3rem;
+      padding: 10px;
+    }
+  }
+}
+
+.footer-column {
+  margin: 0;
+  padding: 0;
+}
+
+.footer-column-headline {
+  margin: 0rem 0rem 0.9375rem 0rem;
+  color: #fff;
+  border-bottom: 1px solid white;
+  padding: 0rem 0rem 0.3125rem 0rem;
+  font: 2.4rem $font-family-base;
+  font-style: italic;
+  font-weight: 100;
+}
+
+.footer-column-entry {
+  margin: 5px 0;
+}
+
+#footer-info {
+  margin-top: 35px;
+
+  a {
+    color: white;
+  }
+}
+
+#footer-legal {
+  margin-top: 35px;
+  padding: 20px 0;
+  text-align: center;
+  color: #666666;
+
+  a {
+    color: #666666;
+  }
+}
+
+@media screen and (max-width: $screen-sm-max) and (min-width: $screen-sm-min) {
+  .locations li {
+    padding: 1.25rem 0.625rem 0rem 0.625rem;
+    line-height: 0;
+    font-size: 1.8rem;
+  }
+
+  .footer-column-entry, #footer-legal {
+    font-size: 1.8rem;
+  }
+}
+
+@media(max-width: $screen-xs-max) {
+  .logo .row > div {
+    margin: 0;
+  }
+
+  .footer .locations {
+    display: none !important;
+  }
+
+  .social {
+    margin: 20px auto;
+    padding: 0;
+  }
+
+  #footer-legal {
+    font-size: 1.3rem;
+    margin: 0;
+  }
+}

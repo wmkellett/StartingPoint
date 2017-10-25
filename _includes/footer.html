@@ -1,0 +1,110 @@
+<footer>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-12 col-sm-6">
+        <ul class="corporate-links list-inline has-pipe">
+          <li><a href="http://www.cleo.com/" class="bigger" target="_blank">Cleo.com</a></li>
+          <li><a href="https://www.cleo.com/about-cleo/" class="bigger" target="_blank">About Us</a></li>
+          <li><a href="http://app.jobvite.com/CompanyJobs/Careers.aspx?k=JobListing&c=qkM9VfwU&v=1" class="bigger" target="_blank">Careers</a></li>
+        </ul>
+      </div>
+      <div class="col-xs-12 col-sm-6">
+        <ul class="social-media list-inline">
+          <li><a href="http://www.facebook.com/CleoCommunications" title="Facebook" target="_blank">
+            <span class="icon facebook"></span>
+            <span class="sr-only">Cleo on Facebook</span>
+          </a></li>
+          <li><a href="http://www.linkedin.com/company/cleo-communications" title="LinkedIn" target="_blank">
+            <span class="icon linkedin"></span>
+            <span class="sr-only">Cleo on LinkedIn</span>
+          </a></li>
+          <li><a href="http://twitter.com/moveviewact" title="Twitter" target="_blank">
+            <span class="icon twitter"></span>
+            <span class="sr-only">Cleo on Twitter</span>
+          </a></li>
+          <li><a href="http://www.youtube.com/channel/UC2PgUTS3aYxShbsWMPkHPuQ" title="YouTube" target="_blank">
+            <span class="icon youtube"></span>
+            <span class="sr-only">Cleo on YouTube</span>
+          </a></li>
+        </ul>
+      </div>
+      <div class="col-sm-12">
+        <p class="text-center contact-info">
+        &copy; 2016 Cleo. All rights reserved ·
+        P.O. Box 15835 |
+        Loves Park, IL 61132-5835 |
+        +1.815.282.7695</p>
+      </div>
+      <div class="col-xs-12 text-center">
+        <ul class="footer-links list-inline has-pipe">
+          <li><a href="http://www.cleo.com/privacy-notice/" target="_blank">Privacy Notice</a></li>
+          <li><a href="http://www.cleo.com/terms-and-conditions/" target="_blank">Terms & Conditions</a></li>
+          <li><a href="http://www.cleo.com/compliance/" target="_blank">Compliance</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+<a class="back-to-top hidden-xs" style="display: inline;" href="#"><span class="icon-arrowup"></span></a>
+
+<style>
+  .spacerClass {
+    height: 100% !important;
+    float: left !important;
+    display: inline-block !important;
+  }
+  @media (min-width: 768px) AND (max-width:1199px) {
+    .spacerClass.col-sm-4 {
+      width: 33.33333% !important;
+    }
+  }
+  @media (min-width: 1200px) {
+    .spacerClass.col-lg-3 {
+      width: 25% !important;
+    }
+  }
+</style>
+<script>
+jQuery(document).ready(function($) {
+    var offset = 250;
+    var duration = 300;
+    jQuery(window).scroll(function() {
+        if (jQuery(this).scrollTop() > offset) {
+            jQuery('.back-to-top').fadeIn(duration);
+        } else {
+            jQuery('.back-to-top').fadeOut(duration);
+        }
+    });
+
+    jQuery('.back-to-top').click(function(event) {
+        event.preventDefault();
+        jQuery('html, body').animate({scrollTop: 0}, duration);
+        return false;
+    })
+});
+
+$(window).load(function() {
+  var documentHeight = $(document).height();
+  var windowHeight = $(window).height();
+  var navHeight = $('#sitemap-container').height();
+  var containerHeight = $('#content .container-fluid').height();
+  if(windowHeight < 800) {
+    var multiplier = 1.5;
+  } else {
+    var multiplier = 1.1;
+  }
+  var scrollStart = documentHeight - (windowHeight * multiplier);
+  console.log("Window:" + windowHeight);
+  console.log("Document:" + documentHeight);
+  console.log("Multiplier:" + multiplier);
+  console.log("Scroll start:" + scrollStart);
+  if(containerHeight > (navHeight * 2)) {
+    $('#sitemap-container').scrollToFixed({
+      marginTop: $('.navbar-fixed-top').outerHeight() + 25,
+      limit: scrollStart,
+      spacerClass: 'spacerClass col-sm-4 col-lg-3',
+      dontSetWidth: false
+    });
+  }
+})
+</script>

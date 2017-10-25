@@ -1,0 +1,56 @@
+---
+layout: page
+---
+
+{% if page.free_type != empty %}
+<h1> {{page.free_type_parent_rsrc}} ({{page.free_type_id}}) </h1>
+<p>The <code>{{page.free_type_id}}</code> type {{page.free_type_first_row.type}} is one kind of {{page.free_type_parent_rsrc}}. See <a href="{{page.parent_link}}">{{page.free_type_base_rsrc}}</a> for more information.</p>
+{% if page.free_type_first_row.description %}
+  <h3>Description</h3>
+  <p><div>{{ page.free_type_first_row.description | markdownify }}</div></p>
+{% endif %}
+  <h3 id="request-body">Attributes</h3>
+  <table class="table table-bordered table-striped">
+    <thead style="background-color: white;">
+      <tr><th>Name</th><th>Type</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      {% assign entries = page.free_type_last_rows %}
+      {% for entry in entries %}
+        {% if entry.xof %}
+          {% assign es = entry.xof_items %}
+        {% else %}
+          {% assign es = '' | split: '|' | push: entry %}
+        {% endif %}
+
+        {% assign e_types = '' | split: '|' %}
+
+        {% for e in es %}
+          {% if e.enum.size > 0 %}
+            {% capture e_type %}[<code>{{ e.enum | quote_strings | join: '</code>, <code>' }}</code>]{% endcapture %}
+          {% elsif e.format %}
+            {% capture e_type %}{{ e.type }} (format: <code>{{ e.format }}</code>){% endcapture %}
+          {% elsif e.pattern %}
+            {% capture e_type %}{{ e.type }} (regex: <code>{{ e.pattern }}</code>){% endcapture %}
+          {% elsif e.link_name %}
+            {% capture e_type %}{{ e.link_name | dot_sep_link: page.subpage_link_prefix, entry.id, e.link_name }}{% endcapture %}
+          {% else %}
+            {% assign e_type = e.type %}
+          {% endif %}
+          {% assign e_types = e_types | push: e_type %}
+        {% endfor %}
+
+        {% assign entry_type_descr = e_types | join: ', ' %}
+        {% if entry.xof %}
+          {% capture list_preface %}<em>{{entry.xof_literate}}</em>{% endcapture %}
+          {% assign entry_type_descr = entry_type_descr | prepend: ': ' | prepend: list_preface %}
+        {% endif %}
+        <tr>
+          <td><code>{{ entry.id }}</code></td>
+          <td>{{ entry_type_descr }}</td>
+          <td>{% if entry.description %}<div>{{ entry.description | markdownify }}</div>{% endif %}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}

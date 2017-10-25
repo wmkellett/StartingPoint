@@ -1,0 +1,68 @@
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,200italic,300,300italic,400italic,600,600italic,700,900,700italic,900italic);
+$font-family-base: 'Source Sans Pro', sans-serif;
+$fa-font-path: $assets-base + '/fonts/font-awesome';
+
+/* Spacer */
+$spacerL-height: 110px;
+$spacerM-height: 60px;
+$spacerS-height: 20px;
+
+/* heights */
+$header: 75px;
+$header-line-height: 28px;
+$header-padding-y: ($header - $header-line-height - 2) * .5;
+$header-padding-x: 88px;
+
+$header-xs: 52px;
+$header-xs-padding-y: 10px;
+$header-xs-padding-x: 30px;
+
+$footer: 191px;
+$footer-padding-y: 31px;
+$footer-padding-x: 90px;
+
+$content-padding-top: 25px;
+$content-padding-right: 0px;
+$content-padding-bottom: 79px;
+$content-padding-left: 0px;
+
+$content-margin-top: $header + 24px;
+$content-margin-right: 88px;
+$content-margin-bottom: $footer + 45px;
+$content-margin-left: 88px;
+
+$content-padding-top-xs: $header-xs + 15px;
+$content-padding-right-xs: 30px;
+$content-padding-bottom-xs: 15px;
+$content-padding-left-xs: 30px;
+
+/* Colors */
+
+$green: #20a157;
+$petrol: #1b5c7e;
+$gray: #999;
+
+$body: #f5f4f2;
+$bgFooter: #444;
+$input-color: #333333;
+$brand-red: #D41217;
+$brand-gray: #655d57;
+$font-gray: #4c4642;
+$font-light: #a6a4a1;
+$link-blue: #0475b2;
+$link-gray: #4d4642;
+$peach: #fff2e1;
+$content-bg: #fcfcfc;
+$content-border: #d0d0ce;
+$highlight: #f0f0f0;
+$blue-bright: #2eb8c3;
+$bright-blue: #0083ca;
+
+$text-shadow: 0 1px 1px rgba(0, 0, 0, 0.8);
+
+.icon-close {
+  background-image: url("#{$assets-base}/images/close.png") !important;
+  background-repeat: no-repeat;
+  width: 29px;
+  height: 28px;
+}

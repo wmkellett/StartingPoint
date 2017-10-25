@@ -1,0 +1,37 @@
+{% comment %}Removed references to soap and themes - FMJ 20160223{%endcomment%}
+{% comment %}Removed references to GitHub - FMJ 20160226{%endcomment%}
+{% comment %}Removed references to support - FMJ 20160310{%endcomment%}
+{% comment %}This file should be customized for the Cleo content and branding. - FMJ 20160310{%endcomment%}
+{% assign chapter = page.url | regex_extract: '^/([^/]+)/' %}
+{% assign sitemap = chapter | sitemap %}
+{% assign fork = "api|blog" | split: "|" | contains: chapter %}
+{% assign beta = "api" | split: "|" | contains: chapter %}
+{% assign page_link = 'page:' | append: page.key %}
+<nav class="navbar navbar-default navbar-fixed-top">
+  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+    <span class="sr-only">Toggle navigation</span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+  </button>
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <div class="col-xs-12">
+        <a class="navbar-brand" href="{{ '/getting-started/overview.html' | prepend: chapter | prepend: '/' | prepend: site.baseurl }}">
+            <img src="/assets/logos/cleo-developer-clear.png" alt="Cleo Rest API Documentation" class="img-responsive" />
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+<div id="navbar" class="navbar-collapse collapse hidden-sm hidden-sm hidden-md hidden-lg hidden-xl" style="z-index:60000;">
+  <span class="icon-close navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"></span>
+  <ul class="nav navbar-nav navbar-left hidden-sm hidden-sm hidden-md hidden-lg hidden-xl">
+    {% for category in sitemap %}
+    <li class="sitemap-headline">{{ category.title }}</li>
+    {% for entry in category.entries %}
+    <li class="sitemap-entry{% if entry.link == page_link %} selected{% endif %}">{% sitemap_link entry %}</li>
+    {% endfor %}
+    {% endfor %}
+  </ul>
+</div>
