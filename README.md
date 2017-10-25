@@ -1,1 +1,0 @@
-# StartingPoint
