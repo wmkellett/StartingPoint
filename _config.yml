@@ -1,0 +1,14 @@
+# basic options
+title: It's just a title
+author: GitHub User
+email: wmkellett@gmail.com
+description: A wonderful site
+twitter_username: jekyllrb
+github_username:  jekyll
+
+# Build settings
+markdown: kramdown
+theme: jekyll-theme-tactile
+
+plugins:
+  - jekyll-sitemap
