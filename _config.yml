@@ -9,7 +9,7 @@ github_username:  jekyll
 # Build settings
 markdown: kramdown
 theme: jekyll-theme-architect
-baseurl:/starting-point
+baseurl: /starting-point
 
 plugins:
   - jekyll-sitemap
