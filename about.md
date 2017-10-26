@@ -1,4 +1,7 @@
-# About this site
+---
+layout: repodesc
+title: About this site
+---
 
 this site is just a site -- 
 
